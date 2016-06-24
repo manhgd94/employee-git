@@ -20,10 +20,30 @@ class EmployeesController extends AppController {
  *
  * @return void
  */
-	public function index() {
-		$this->Employee->recursive = 0;
-		$this->set('employees', $this->Paginator->paginate());
-	}
+	public function index($id = null) {
+        $this->Employee->recursive = 0;
+        $this->loadmodel('Department');
+        $this->set('options', $this->Department->find('list'));
+        $conditions = [];
+        if ($id) {
+            $conditions = ['Employee.department_id' => $id];
+        }
+        if ($this->request->is('post')) {
+            $search_name    = $this->request->data['Search']['name'];
+            $search_dept_id = $this->request->data['Search']['department_id'];
+            if ($search_dept_id) {
+                $conditions['Employee.department_id'] = $search_dept_id;
+            }
+            if ($search_name) {
+                $conditions['Employee.name LIKE'] = '%'.$search_name.'%';
+            }
+        }
+        $this->Paginator->settings = array(
+            'conditions' => $conditions,
+            'limit'      => 10
+        );
+        $this->set('employees', $this->Paginator->paginate());
+    }
 
 /**
  * view method
