@@ -1,21 +1,28 @@
-<div class="departments form">
-<?php echo $this->Form->create('Department'); ?>
-	<fieldset>
-		<legend><?php echo __('Add Department'); ?></legend>
-	<?php
-		echo $this->Form->input('name');
-		echo $this->Form->input('office_phone');
-		echo $this->Form->input('employee_id');
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php echo $this->Html->link(__('List Departments'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Employees'), array('controller' => 'employees', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Employee'), array('controller' => 'employees', 'action' => 'add')); ?> </li>
-	</ul>
+<div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">Add Department</h3>
+		</div>
+		<div class="panel-body">
+			<?php echo $this->Form->create('Department'); ?>
+				<?php
+					echo $this->Form->input('name', array('class'=>'form-control'));
+					echo $this->Form->input('office_phone', array('class'=>'form-control'));
+					echo $this->Form->input('employee_id', array(
+	                	'type' => 'select',
+						'options' => $options, // typically set from $this->find('list') in controller 
+						'label'=> 'Manager',
+						// 'value' => $arrProjectLeaderDetails['id'],  // specify default value 
+						'escape' => false,  // prevent HTML being automatically escaped
+						'error' => false,
+						'class' => 'form-control'
+					));
+				?>
+			<br>
+			<?php
+				echo $this->Form->submit(__('Submit',true), array('class'=>'btn btn-success')); 
+		    	echo $this->Form->end();
+		     ?>
+		</div>
+	</div>
 </div>
