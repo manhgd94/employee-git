@@ -7,7 +7,7 @@
 			<?php echo $this->Form->create('Employee', array('type' => 'file')); ?>
 				<div class="avatar">
 					<?php 
-						echo $this->Html->image('cake_logo.png', array('alt' => 'avatar'));
+						echo $this->Html->image($this->request->data['Employee']['photo'], array('alt' => 'avatar', 'class'=>'avatar-img'));
 						echo $this->Form->input('photo', array('type'=>'file', 'label'=>false));
 					?>
 				</div>

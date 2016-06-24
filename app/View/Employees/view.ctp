@@ -14,7 +14,7 @@
 		</tr>
 		<tr>
 			<td><b><?php echo __('Photo'); ?></b></td>
-			<td><?php echo $this->Html->image(h($employee['Employee']['photo']), array('alt' => 'avatar', 'class'=> 'avatar')); ?></td>
+			<td><?php echo $this->Html->image(h($employee['Employee']['photo']), array('alt' => 'avatar', 'class'=> 'avatar-img')); ?></td>
 		</tr>
 		<tr>
 			<td><b><?php echo __('Job Title'); ?></b></td>

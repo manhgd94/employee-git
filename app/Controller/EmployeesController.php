@@ -70,7 +70,7 @@ public function beforeFilter(){
  */
 	public function add() {
 		if ($this->request->is('post')) {
-			$filename = $_SERVER['DOCUMENT_ROOT']."/employee/app/webroot/img/".$this->data['Employee']['photo']['name']; 
+			$filename = $_SERVER['DOCUMENT_ROOT']."/employee-git/app/webroot/img/".$this->data['Employee']['photo']['name']; 
 			$this->Employee->create();
 			if (move_uploaded_file($this->data['Employee']['photo']['tmp_name'],$filename)) {
 				$this->request->data['Employee']['photo'] = $this->data['Employee']['photo']['name'];
@@ -98,7 +98,7 @@ public function beforeFilter(){
 			throw new NotFoundException(__('Invalid employee'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
-			$filename = $_SERVER['DOCUMENT_ROOT']."/employee/app/webroot/img/".$this->data['Employee']['photo']['name'];
+			$filename = $_SERVER['DOCUMENT_ROOT']."/employee-git/app/webroot/img/".$this->data['Employee']['photo']['name'];
 			if (move_uploaded_file($this->data['Employee']['photo']['tmp_name'],$filename)) {
 				$this->request->data['Employee']['photo'] = $this->data['Employee']['photo']['name'];
 				if ($this->Employee->save($this->request->data)) {
