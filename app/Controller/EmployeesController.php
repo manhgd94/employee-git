@@ -7,7 +7,10 @@ App::uses('AppController', 'Controller');
  * @property PaginatorComponent $Paginator
  */
 class EmployeesController extends AppController {
-
+public function beforeFilter(){
+	parent::beforeFilter();
+	$this->Auth->allow('index', 'view');
+}
 /**
  * Components
  *
