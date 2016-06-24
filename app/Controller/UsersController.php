@@ -113,6 +113,7 @@ class UsersController extends AppController {
             if ($this->Auth->login()) {
                 $this->redirect(array('controller'=>'employees','action' => 'index'));
             }else{
+            	$this->Flash->error(__('username or password is incorrect'));
                 $this->logout();
             }
         }
