@@ -6,7 +6,7 @@ App::uses('AppController', 'Controller');
  * @property Department $Department
  * @property PaginatorComponent $Paginator
  */
-class DepartmentsController extends AppController {
+class DepartmentsController extends AppController {	
 public function beforeFilter(){
 	parent::beforeFilter();
 	$this->Auth->allow('index', 'view');
@@ -81,11 +81,13 @@ public function beforeFilter(){
 				$this->Flash->error(__('The department could not be saved. Please, try again.'));
 			}
 		} else {
+			$this->loadmodel('Employee');
+			$this->set('options', $this->Employee->find('list'));
 			$options = array('conditions' => array('Department.' . $this->Department->primaryKey => $id));
+			$manager = $this->Department->find('first', $options);
+			$this->set('manager',$manager['Department']['employee_id']);
 			$this->request->data = $this->Department->find('first', $options);
 		}
-		$employees = $this->Department->Employee->find('list');
-		$this->set(compact('employees'));
 	}
 
 /**
