@@ -101,4 +101,27 @@ class UsersController extends AppController {
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
+	
+//login--logout
+	public function beforeFilter() {
+		parent::beforeFilter();
+		$this->Auth->allow('login'); // Letting users register themselves
+	}
+
+	public function login() {
+		$this->theme="Admin";
+		$this->layout="index";
+		if ($this->request->is('post') && !empty($this->request->data)) {
+			if ($this->Auth->login()) {
+				$this->redirect(array('controller'=>'employees','action' => 'index'));
+			}else{
+				$this->logout();
+			}
+		}
+	}
+	public function logout() {
+		if ($this->Auth->logout()) {
+			$this->redirect(array('controller'=>'users','action' => 'login'));
+		}
+	}	
 }
