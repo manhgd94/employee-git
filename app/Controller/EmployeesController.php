@@ -67,12 +67,16 @@ class EmployeesController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
+			$filename = $_SERVER['DOCUMENT_ROOT']."/employee/app/webroot/img/".$this->data['Employee']['photo']['name']; 
 			$this->Employee->create();
-			if ($this->Employee->save($this->request->data)) {
-				$this->Flash->success(__('The employee has been saved.'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
-				$this->Flash->error(__('The employee could not be saved. Please, try again.'));
+			if (move_uploaded_file($this->data['Employee']['photo']['tmp_name'],$filename)) {
+				$this->request->data['Employee']['photo'] = $this->data['Employee']['photo']['name'];
+				if ($this->Employee->save($this->request->data)) {
+					$this->Flash->success(__('The employee has been saved.'));
+					return $this->redirect(array('action' => 'index'));
+				} else {
+					$this->Flash->error(__('The employee could not be saved. Please, try again.'));
+				}
 			}
 		}
 		$departments = $this->Employee->Department->find('list');
@@ -91,11 +95,15 @@ class EmployeesController extends AppController {
 			throw new NotFoundException(__('Invalid employee'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
-			if ($this->Employee->save($this->request->data)) {
-				$this->Flash->success(__('The employee has been saved.'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
-				$this->Flash->error(__('The employee could not be saved. Please, try again.'));
+			$filename = $_SERVER['DOCUMENT_ROOT']."/employee/app/webroot/img/".$this->data['Employee']['photo']['name'];
+			if (move_uploaded_file($this->data['Employee']['photo']['tmp_name'],$filename)) {
+				$this->request->data['Employee']['photo'] = $this->data['Employee']['photo']['name'];
+				if ($this->Employee->save($this->request->data)) {
+					$this->Flash->success(__('The employee has been saved.'));
+					return $this->redirect(array('action' => 'index'));
+				} else {
+					$this->Flash->error(__('The employee could not be saved. Please, try again.'));
+				}
 			}
 		} else {
 			$options = array('conditions' => array('Employee.' . $this->Employee->primaryKey => $id));
