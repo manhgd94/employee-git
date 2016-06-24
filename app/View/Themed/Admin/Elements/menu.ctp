@@ -6,12 +6,12 @@
     <ul class="nav navbar-nav">
 		<li><?php echo $this->Html->link('Employees',array('controller'=>'employees', 'action'=>'index')) ?></li>
 		<li><?php echo $this->Html->link('Departments',array('controller'=>'departments', 'action'=>'index')) ?></li>
-    <?php if(isset($userlogin)){ ?>
+    <?php if(isset($userlogin)): ?>
       <li><?php echo $this->Html->link('Logout',array('controller'=>'users', 'action'=>'logout')) ?></li>
-    <?php } ?>
-    <?php if(!isset($userlogin)){ ?>
+    <?php endif ?>
+    <?php if(!isset($userlogin)): ?>
 		  <li><?php echo $this->Html->link('Login',array('controller'=>'users', 'action'=>'login')) ?></li>
-    <?php } ?>
+    <?php endif ?>
     </ul>
   </div>
 </nav>
